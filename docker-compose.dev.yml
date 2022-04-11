@@ -12,7 +12,9 @@ services:
       - CONNECTIONSTRING=mongodb://mongo:27017
     volumes:
       - ./:/app
-    command: npm run debug
+      - /app/node_modules
+      - /app/client/node_modules
+    command: npm run dev
 
   mongo:
     image: mongo:5.0.6

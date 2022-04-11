@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "debug": "nodemon --inspect=0.0.0.0:9229 server.js",
+    "dev": "npm run debug & npm run --prefix client start",
     "start": "node server.js"
   },
   "keywords": [],
