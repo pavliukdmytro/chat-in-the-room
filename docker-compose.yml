@@ -8,15 +8,15 @@ services:
       - 8000:8000
       - 3000:3000
       - 9229:9229
+    env_file: ./config/.env
     environment:
-      - SERVER_PORT=8000
-      - CONNECTIONSTRING=mongodb://mongo:27017
+      - SERVER_PORT=$SERVER_PORT
+      - DB_PATH=$DB_PATH
     volumes:
       - ./:/app
-      - /app/node_modules
-      - /app/client/node_modules
+      - ./node_modules:/app/node_modules
+      - ./client/node_modules:/app/client/node_modules
     command: npm run dev
-
   mongo:
     image: mongo:5.0.6
     ports:
@@ -27,3 +27,5 @@ services:
 volumes:
   mongodb:
   mongodb_config:
+  node_modules:
+  client-node_modules:

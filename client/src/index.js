@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// import 'bootstrap/dist/css/bootstrap.css';
+import './index.scss';
+// import axios from 'axios';
+
+// console.log(axios);
 
 ReactDOM.render(
   <React.StrictMode>

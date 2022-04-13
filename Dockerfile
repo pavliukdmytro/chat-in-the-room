@@ -5,8 +5,8 @@ ENV NODE_ENV=development
 
 WORKDIR /app
 
-COPY ["package.json", "package-lock.json*", "./"]
-COPY ["client/package.json", "client/package-lock.json*", "./client/"]
+COPY ["package.json", "package-lock.json", "./"]
+COPY ["client/package.json", "client/package-lock.json", "./client/"]
 
 RUN npm install --development
 RUN npm install --development --prefix client
