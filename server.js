@@ -9,5 +9,11 @@ app.get('/', (req, res) => {
   res.end('Hello world!!');
 });
 
+app.post('/sign-up', (req, res) => {
+  res.json({
+    ok: true,
+  })
+})
+
 
 app.listen(SERVER_PORT || 8000);
