@@ -8,10 +8,10 @@ services:
       - 8000:8000
       - 3000:3000
       - 9229:9229
-    env_file: ./config/.env
+    env_file: .env
     environment:
-      - SERVER_PORT=$SERVER_PORT
-      - DB_PATH=$DB_PATH
+      - SERVER_PORT=${SERVER_PORT}
+      - DB_PATH=${DB_PATH}
     volumes:
       - ./:/app
       - ./node_modules:/app/node_modules
@@ -20,7 +20,7 @@ services:
   mongo:
     image: mongo:5.0.6
     ports:
-      - 27017:27017
+      - 27018:27017
     volumes:
       - mongodb:/data/db
       - mongodb_config:/data/configdb

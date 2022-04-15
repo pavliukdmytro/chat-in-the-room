@@ -6,6 +6,7 @@ import './SignUp.scss';
 const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handlerValidate = (event, form) => {
     if (!form.checkValidity()) {
@@ -16,11 +17,10 @@ const SignUp = () => {
     form.classList.add('was-validated');
   };
   const handlerValidatePassword = (e) => {
-    if (password !== confirmPassword) {
-      e.preventDefault();
-      setPassword('');
-      setConfirmPassword('');
-    }
+      if (password !== confirmPassword) {
+        setError('password does not match');
+        e.preventDefault();
+      }
   };
 
   const handlerSubmit = async (e) => {
@@ -29,9 +29,11 @@ const SignUp = () => {
 
     const { data, status } = await axios.post('sign-up', formData);
 
-    console.log(status, data);
+    if (!data.ok && data.error) {
+      setError(data.error);
+    }
 
-    // console.log('submit');
+    console.log(status, data);
   }
 
   useEffect(() => {
@@ -54,7 +56,6 @@ const SignUp = () => {
 
   return(
     <div className="col-md-6 offset-md-3">
-      {password}
       <form
         className="m-auto mt-5 mb-5 needs-validation"
         noValidate
@@ -64,7 +65,7 @@ const SignUp = () => {
           <label htmlFor="exampleInputEmail1 mb-2">Email address</label>
           <input
             type="email"
-            name="email"
+            name="username"
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
@@ -103,6 +104,7 @@ const SignUp = () => {
             id="exampleInputPassword1"
             placeholder="Password"
             required
+            pattern="^[\w ]{6,16}$"
             value={ password }
             onInput={({ target }) => setPassword(target.value)}
           />
@@ -116,10 +118,12 @@ const SignUp = () => {
             id="exampleInputPassword1"
             placeholder="Password"
             required
+            pattern="^[\w ]{6,16}$"
             value={ confirmPassword }
             onInput={({ target }) => setConfirmPassword(target.value)}
           />
         </div>
+        { error && <p className="text-danger">{ error }</p> }
         <button
           type="submit"
           className="btn btn-primary w-100 d-flex m-auto justify-content-center"

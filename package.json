@@ -2,11 +2,11 @@
   "name": "docket-node",
   "version": "1.0.0",
   "description": "docker build -t getting-started . - build the container image   -t - flag tags our image. getting-started - container's name . - path to DockerFile",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
-    "debug": "nodemon --inspect=0.0.0.0:9229 server.js",
+    "debug": "nodemon --inspect=0.0.0.0:9229 server/server.js",
     "dev": "npm run debug & npm run --prefix client start",
-    "start": "node server.js"
+    "start": "node server/server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "express": "^4.17.3",
-    "mongodb": "^4.5.0"
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.3.0",
+    "multer": "^1.4.4"
   }
 }
