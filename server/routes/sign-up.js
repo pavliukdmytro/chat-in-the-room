@@ -1,5 +1,6 @@
 const path = require('path');
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
 
 const User = require(path.join(__dirname, '..', 'models/User' ));
 
@@ -21,6 +22,10 @@ module.exports = async (req, res) => {
 
     if (req?.files?.photo?.size) {
       photo = `${ req?.files?.photo?.path.replace('/app', '') }`;
+    } else {
+      fs.rm(path.join(__dirname, '../../', req?.files?.photo?.path.replace('/app', '') ), (err, data) => {
+        if (err) console.error(err);
+      });
     }
 
     const body = {
@@ -54,9 +59,13 @@ module.exports = async (req, res) => {
       console.error(err);
     }
 
-    res.json({
-      ok: false,
-      error
+    fs.rm(path.join(__dirname, '../../', req?.files?.photo?.path.replace('/app', '') ), (err, data) => {
+      if (err) console.error(err);
+
+      res.json({
+        ok: false,
+        error
+      });
     });
   }
 }
