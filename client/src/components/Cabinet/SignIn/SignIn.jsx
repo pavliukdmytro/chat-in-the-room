@@ -1,8 +1,10 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handlerValidate = (event, form) => {
     if (!form.checkValidity()) {
@@ -21,6 +23,8 @@ const SignIn = () => {
 
     if (!data.ok && data.error) {
       setError(data.error);
+    } else {
+      navigate('/');
     }
 
     console.log(status, data);

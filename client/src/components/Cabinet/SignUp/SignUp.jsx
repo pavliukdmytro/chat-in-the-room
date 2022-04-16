@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 import './SignUp.scss';
 
@@ -7,6 +8,9 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+
+  let navigate = useNavigate();
+
 
   const handlerValidate = (event, form) => {
     if (!form.checkValidity()) {
@@ -27,18 +31,20 @@ const SignUp = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
 
-    const { data, status } = await axios.post('sign-up', formData);
+    const { data } = await axios.post('sign-up', formData);
 
     if (!data.ok && data.error) {
       setError(data.error);
+    } else {
+      navigate('/');
     }
-
-    console.log(status, data);
   }
 
   useEffect(() => {
       // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      let forms = document.querySelectorAll('.needs-validation')
+      let forms = document.querySelectorAll('.needs-validation');
+
+      // console.log(location);
 
       // Loop over them and prevent submission
       Array.prototype.slice.call(forms)

@@ -15,6 +15,7 @@ const store = new MongoDBStore({
 module.exports = (app) => {
   app.use(express.static(path.join(__dirname, 'public')));
 
+  //TODO: delete empty files
   app.use(formData.parse({
     uploadDir: path.join(__dirname, '../../', 'uploads'),
   }));
