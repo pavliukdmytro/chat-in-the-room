@@ -55,7 +55,7 @@ const SignIn = () => {
           <label htmlFor="exampleInputEmail1 mb-2">Email address</label>
           <input
             type="email"
-            name="username"
+            name="email"
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"

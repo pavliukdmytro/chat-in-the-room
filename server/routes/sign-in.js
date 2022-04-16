@@ -1,15 +1,27 @@
-const path = require('path');
+const passport = require('passport');
 
-module.exports = (req, res) => {
-  // const body = {
-  //   ...req.body,
-  //   photo: `/${req.file.path}`
-  // };
-  //
-  // console.log(body);
+module.exports = (req, res, next) => {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
 
-  res.json({
-    ok: false,
-    error: 'sign-in'
-  })
-}
+    if (!user) {
+      return res.json({
+        ...info,
+        ok: false,
+      });
+    }
+
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+
+      delete user?._doc?.password;
+
+      return res.json({
+        user: {
+          ...user?._doc,
+        },
+        ok: true,
+      })
+    });
+  })(req, res, next);
+};

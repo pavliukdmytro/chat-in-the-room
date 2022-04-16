@@ -65,7 +65,7 @@ const SignUp = () => {
           <label htmlFor="exampleInputEmail1 mb-2">Email address</label>
           <input
             type="email"
-            name="username"
+            name="email"
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
@@ -98,7 +98,7 @@ const SignUp = () => {
         <div className="form-group mb-4">
           <label htmlFor="exampleInputPassword1">Password</label>
           <input
-            type="text"
+            type="password"
             name="password"
             className="form-control"
             id="exampleInputPassword1"
@@ -112,7 +112,7 @@ const SignUp = () => {
         <div className="form-group mb-4">
           <label htmlFor="exampleInputPassword1">Confirm Password</label>
           <input
-            type="text"
+            type="password"
             name="confirmPassword"
             className="form-control"
             id="exampleInputPassword1"
