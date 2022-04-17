@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  notes:
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    env_file: .env
+    environment:
+      - SERVER_PORT=${SERVER_PORT}
+      - DB_PATH=${DB_PATH}
+    volumes:
+      - ./:/app
+      - ./node_modules:/app/node_modules
+      - ./client/node_modules:/app/client/node_modules
+    command: npm run start
+  mongo:
+    image: mongo:5.0.6
+    ports:
+      - 27018:27017
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+volumes:
+  mongodb:
+  mongodb_config:
+  node_modules:
+  client-node_modules:
