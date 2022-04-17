@@ -18,10 +18,13 @@ module.exports = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
-    let photo = '/client/public/default-user.svg';
+    let photo = {
+      src: 'default-user.svg',
+      alt: req?.body?.name,
+    };
 
     if (req?.files?.photo?.size) {
-      photo = `${ req?.files?.photo?.path.replace('/app', '') }`;
+      photo.src = path.parse(req?.files?.photo?.path).base;
     } else {
       fs.rm(path.join(__dirname, '../../', req?.files?.photo?.path.replace('/app', '') ), (err, data) => {
         if (err) console.error(err);

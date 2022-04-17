@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { removeUser } from '@store/slices/authData';
 import '@/Cabinet/UserInfo/UserInfo.scss';
 
+import DefImg from "@/def/DefImg/DefImg";
+
 const UserInfo = () => {
   const authData = useSelector(store => store?.authData?.user);
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const UserInfo = () => {
   return(
     <div className="d-flex align-items-center justify-content-end">
       <div className="user-photo">
-
+        { authData?.photo && <DefImg result={ authData?.photo } /> }
       </div>
       <div className="mx-2">
         Hello, <b>{ authData.name }</b>
