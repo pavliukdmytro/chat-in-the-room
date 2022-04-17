@@ -12,7 +12,6 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, async function verify
     if (!isCoincides) {
       return cb(null, false, { error: 'Incorrect email or password.' });
     }
-    delete user.password;
 
     return cb(null, user);
   }
@@ -22,7 +21,6 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, async function verify
 
 passport.serializeUser(function(user, cb) {
   process.nextTick(function() {
-    console.log(user);
 
     cb(null, {
       id: user.id,

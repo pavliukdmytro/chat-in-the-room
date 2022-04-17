@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAuth } from '@store/slices/authData';
 
-import UserInfo from '@/Cabinet/UserInfo/UserInfo';
+import UserInfo from '@/cabinet/UserInfo/UserInfo';
 
 const Entry = () => {
   const authData = useSelector(store => store.authData);

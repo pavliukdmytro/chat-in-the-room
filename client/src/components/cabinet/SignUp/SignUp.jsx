@@ -14,7 +14,6 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
-
   const handlerValidate = (event, form) => {
     if (!form.checkValidity()) {
       event.preventDefault();

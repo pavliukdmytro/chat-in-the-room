@@ -12,10 +12,13 @@ export const authData = createSlice({
   reducers: {
     setData(state, { payload }) {
       state.isLoad = true;
+
       if (payload) {
         state.user = {
           ...payload,
         }
+      } else {
+        state.user = null;
       }
     },
     removeUser(state) {

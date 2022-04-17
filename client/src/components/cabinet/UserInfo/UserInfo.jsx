@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios";
 import { useNavigate, Link } from 'react-router-dom';
 import { removeUser } from '@store/slices/authData';
-import '@/Cabinet/UserInfo/UserInfo.scss';
+import '@/cabinet/UserInfo/UserInfo.scss';
 
 import DefImg from "@/def/DefImg/DefImg";
 

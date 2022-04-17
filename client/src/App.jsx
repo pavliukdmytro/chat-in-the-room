@@ -1,29 +1,35 @@
 import { Routes, Route } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 import Header from "@/Header/Header";
 // import Footer from "@/Footer/Footer";
 import Main from "@/Main/Main";
-import SignIn from "@/Cabinet/SignIn/SignIn.jsx";
-import SignUp from "@/Cabinet/SignUp/SignUp.jsx";
+import SignIn from "@/cabinet/SignIn/SignIn.jsx";
+import SignUp from "@/cabinet/SignUp/SignUp.jsx";
+import Cabinet from "@/cabinet/Cabinet/Cabinet";
+import NotFound from "@/NotFound/NotFound";
 
 import './scss/core/wanted.scss'
 
 function App() {
+  const authData = useSelector(store => store.authData);
   return (
     <>
       <div className="container">
         <Header />
       </div>
-      <main className="container">
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/sign-in" element={<SignIn />} />
-        </Routes>
-      </main>
-      {/*<div className="container">*/}
-      {/*  <Footer />*/}
-      {/*</div>*/}
+      {
+        authData?.isLoad &&
+        <main className="container">
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/sign-in" element={<SignIn />} />
+            { !!authData?.user && <Route path="/cabinet" element={<Cabinet />} /> }
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+      }
     </>
   );
 }
