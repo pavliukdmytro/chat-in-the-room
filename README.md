@@ -1,4 +1,4 @@
-# Room's chat
+# Chat room
 
 ### install packages
 npm i & npm i --prefix client
