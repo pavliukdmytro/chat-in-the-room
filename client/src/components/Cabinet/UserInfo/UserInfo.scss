@@ -1,6 +1,19 @@
-.user-photo{
-  border-radius: 50%;
-  overflow: hidden;
-  width: 40px;
-  height: 40px;
+.user-info{
+  display: flex;
+  align-items: center;
+  &__photo{
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+  }
+  &__name{
+    color: black;
+    text-decoration: none;
+    margin: 0 20px;
+    &:hover{
+      color: #333;
+    }
+  }
 }
