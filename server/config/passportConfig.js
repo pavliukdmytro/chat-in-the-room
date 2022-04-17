@@ -22,7 +22,14 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, async function verify
 
 passport.serializeUser(function(user, cb) {
   process.nextTick(function() {
-    cb(null, { id: user.id, email: user.email });
+    console.log(user);
+
+    cb(null, {
+      id: user.id,
+      email: user.email,
+      photo: user.photo,
+      name: user.name,
+    });
   });
 });
 

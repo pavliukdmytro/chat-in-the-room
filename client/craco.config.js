@@ -3,7 +3,8 @@ const { join } = require('path');
 module.exports = {
   webpack: {
     alias: {
-      '@' : join(__dirname, 'src/components')
+      '@' : join(__dirname, 'src/components'),
+      '@store' : join(__dirname, 'src/store'),
     },
     // plugins: [
     //   {

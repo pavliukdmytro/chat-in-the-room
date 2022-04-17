@@ -1,10 +1,13 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { setData } from "@store/slices/authData";
 
 const SignIn = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handlerValidate = (event, form) => {
     if (!form.checkValidity()) {
@@ -25,6 +28,7 @@ const SignIn = () => {
       setError(data.error);
     } else {
       navigate('/');
+      dispatch(setData( data.user ));
     }
 
     console.log(status, data);

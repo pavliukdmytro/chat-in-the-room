@@ -15,6 +15,10 @@ app.get('/', (req, res) => {
 
 app.post('/sign-up', require(path.join(__dirname, 'routes/sign-up.js')));
 
-app.post('/sign-in', require('./routes/sign-in'));
+app.post('/sign-in', require(path.join(__dirname, 'routes/sign-in')));
+
+app.get('/auth', require(path.join(__dirname, 'routes/auth')));
+
+app.post('/logout', require(path.join(__dirname, 'routes/logout')));
 
 require('./db.js')(app);

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setData } from "@store/slices/authData";
 
 import './SignUp.scss';
 
@@ -8,8 +10,9 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const dispatch = useDispatch()
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
 
   const handlerValidate = (event, form) => {
@@ -37,6 +40,8 @@ const SignUp = () => {
       setError(data.error);
     } else {
       navigate('/');
+      console.log(data);
+      dispatch(setData( data.user ));
     }
   }
 
@@ -81,12 +86,12 @@ const SignUp = () => {
           {/*<small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>*/}
         </div>
         <div className="form-group mb-4">
-          <label htmlFor="exampleInputEmail1">User name</label>
+          <label htmlFor="name">User name</label>
           <input
             type="text"
             name="name"
             className="form-control"
-            id="exampleInputEmail1"
+            id="name"
             aria-describedby="emailHelp"
             placeholder="Enter user name"
             required
@@ -116,12 +121,12 @@ const SignUp = () => {
           />
         </div>
         <div className="form-group mb-4">
-          <label htmlFor="exampleInputPassword1">Confirm Password</label>
+          <label htmlFor="password-confirm">Confirm Password</label>
           <input
             type="password"
             name="confirmPassword"
             className="form-control"
-            id="exampleInputPassword1"
+            id="password-confirm"
             placeholder="Password"
             required
             pattern="^[\w ]{6,16}$"
