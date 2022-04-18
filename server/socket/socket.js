@@ -1,9 +1,9 @@
-const { Server } = require("socket.io");
-
-module.exports = (server) => {
-  const io = new Server(server);
+module.exports = (server, io) => {
 
   io.on('connection', (socket) => {
-    console.log('a user connected');
+
+    const { user } = socket?.handshake?.session?.passport;
+    console.log(user);
+
   });
 }

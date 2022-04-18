@@ -31,7 +31,7 @@ const MainCreateRoom = () => {
   }
 
   return(
-    <form className="row" onSubmit={ handlerSubmit }>
+    <form className="row mb-5" onSubmit={ handlerSubmit }>
       <div className="col-md-6 offset-md-3">
         <div className="form-group">
           <label htmlFor="exampleInputEmail1" className="text-center w-100 mb-3">Create or enter in a new room</label>

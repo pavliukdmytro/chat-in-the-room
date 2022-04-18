@@ -1,10 +1,11 @@
-const session = require('express-session');
+const expressSession = require('express-session');
 const express = require('express');
 const path = require('path');
 const passport = require('passport');
-const MongoDBStore = require('express-mongodb-session')(session);
+const MongoDBStore = require('express-mongodb-session')(expressSession);
 const formData = require("express-form-data");
 const bodyParser = require('body-parser');
+const sharedsession = require("express-socket.io-session");
 
 const { DB_PATH, SECRET_SESSION } = process.env;
 
@@ -13,7 +14,7 @@ const store = new MongoDBStore({
   collection: 'mySessions'
 });
 
-module.exports = (app) => {
+module.exports = (app, io) => {
   app.use(express.static(path.join(__dirname, '../../', 'client/build')));
   app.use(express.static(path.join(__dirname, '../../', 'uploads')));
 
@@ -26,12 +27,23 @@ module.exports = (app) => {
     uploadDir: path.join(__dirname, '../../', 'uploads'),
   }));
 
-  app.use(session({
+  const session = expressSession({
     secret: SECRET_SESSION,
     resave: false,
     saveUninitialized: false,
     store,
-  }));
+  })
+
+  app.use(session);
 
   app.use(passport.authenticate('session'));
+
+  io.use(sharedsession(session, {
+    autoSave:true
+  }));
+
+  // io.on('connection', (socket) => {
+  //   console.log(socket.handshake.session);
+  //   console.log('a user connected');
+  // });
 }

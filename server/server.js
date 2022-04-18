@@ -3,11 +3,13 @@ const path = require('path');
 const http = require('http');
 const app = express();
 const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
 /**
  * middlewares
  */
-require('./middlewares/middlewares')(app);
+require('./middlewares/middlewares')(app, io);
 
 /**
  * passport config
@@ -35,7 +37,7 @@ app.get('*', require(path.join(__dirname, 'routes/mainPage')));
  * socket connections
  */
 
-require(path.join(__dirname, 'socket/socket'))(server);
+require(path.join(__dirname, 'socket/socket'))(server, io);
 
 /**
  * connecting to mongo db and start express server
