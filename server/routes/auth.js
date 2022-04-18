@@ -43,10 +43,9 @@ router.put('/', async (req, res) => {
     const hash = await bcrypt.hash(newPassword, salt);
     copyNewUser.password = hash;
   }
-  console.log(user);
 
   const photoPath = photo.size ? path.join(__dirname, '../../uploads', user.photo.src) : photo.path;
-  // console.log('photoPath',  photoPath);
+
   fs.access(photoPath, fs.constants.R_OK, (err) => {
     if (err) return;
 
@@ -66,7 +65,6 @@ router.put('/', async (req, res) => {
     await User.updateOne({ id: req.user.id }, copyNewUser);
 
     req.logout();
-    // req.login();
 
     res.json({
       ok: true,
