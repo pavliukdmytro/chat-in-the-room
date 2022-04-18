@@ -31,7 +31,7 @@ const CabinetUser = () => {
     if (!data.ok && data.error) {
       setError(data.error);
     } else {
-      navigate('/');
+      navigate('/sign-in');
       dispatch( setData(null) );
     }
   }

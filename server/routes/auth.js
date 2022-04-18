@@ -3,10 +3,11 @@ const path = require("path");
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require("bcryptjs");
+const fs = require("fs");
 
 router.get('/', (req, res) => {
   let user = req.user ? { ...req.user } : null;
-  // console.log(user)
+
   res.json({
     ok: true,
     user,
@@ -15,6 +16,7 @@ router.get('/', (req, res) => {
 
 router.put('/', async (req, res) => {
   const { newPassword, confirmNewPassword, oldPassword } = req.body;
+  const photo = req.files.photo;
   let error = '';
 
   const user = await User.findById(req.user.id);
@@ -41,12 +43,30 @@ router.put('/', async (req, res) => {
     const hash = await bcrypt.hash(newPassword, salt);
     copyNewUser.password = hash;
   }
+  console.log(user);
+
+  const photoPath = photo.size ? path.join(__dirname, '../../uploads', user.photo.src) : photo.path;
+  // console.log('photoPath',  photoPath);
+  fs.access(photoPath, fs.constants.R_OK, (err) => {
+    if (err) return;
+
+    fs.rm(photoPath, (err) => {
+      if (err) console.error(err);
+    });
+  });
+
+  if (photo.size) {
+    copyNewUser.photo = {
+      src: path.parse(photo.path).base,
+      alt: req.body.name,
+    }
+  }
 
   if (!error) {
-    const updatedUser = await User.updateOne({ id: req.user.id }, copyNewUser);
+    await User.updateOne({ id: req.user.id }, copyNewUser);
 
-    // console.log(updatedUser);
     req.logout();
+    // req.login();
 
     res.json({
       ok: true,
