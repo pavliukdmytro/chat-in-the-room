@@ -56,7 +56,7 @@ router.put('/', async (req, res) => {
 
   if (photo.size) {
     copyNewUser.photo = {
-      src: path.parse(photo.path).base,
+      src: '/' + path.parse(photo.path).base,
       alt: req.body.name,
     }
   }

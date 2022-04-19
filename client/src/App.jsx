@@ -8,9 +8,9 @@ import SignIn from "@/cabinet/SignIn/SignIn.jsx";
 import SignUp from "@/cabinet/SignUp/SignUp.jsx";
 import Cabinet from "@/cabinet/Cabinet/Cabinet";
 import NotFound from "@/NotFound/NotFound";
-import Room from '@/Room/Room.js';
+import Room from '@/Room/Room.jsx';
 
-import './scss/core/wanted.scss'
+import './scss/core/wanted.scss';
 
 function App() {
   const authData = useSelector(store => store.authData);

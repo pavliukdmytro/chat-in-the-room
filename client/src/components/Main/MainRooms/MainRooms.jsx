@@ -14,7 +14,6 @@ const MainRooms = () => {
         setRooms(data.rooms);
       }
 
-      console.log(data);
     }
     getData();
   },[]);

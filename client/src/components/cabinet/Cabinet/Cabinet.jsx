@@ -1,4 +1,4 @@
-import CabinetUser  from './CabinetUser/CabinetUser.js';
+import CabinetUser  from './CabinetUser/CabinetUser.jsx';
 
 const Cabinet = () => {
   return(

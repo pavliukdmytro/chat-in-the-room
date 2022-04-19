@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const { Schema, model} = require('mongoose');
 
-const roomSchema = new mongoose.Schema({
+const roomSchema = new Schema({
   roomId: {
     type: String,
     unique: true
@@ -8,9 +8,10 @@ const roomSchema = new mongoose.Schema({
   messages: {
     type: Array,
   },
-  users: {
-    type: Array,
-  }
+  users: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 });
 
-module.exports = mongoose.model('Room', roomSchema);
+module.exports = model('Room', roomSchema);
