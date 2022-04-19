@@ -5,24 +5,22 @@ const RoomUsers = () => {
   const users = useSelector(state => state?.room?.data?.users);
 
   return(
-    <ul className="list-group list-group-flush">
+    <ul className="room-users">
       {
         Array.isArray(users) &&
         users.map(el => (
           <li
-            key={ el.id }
-            className="list-group-item d-flex justify-content-end align-items-end"
+            key={ el._id }
+            className="room-users-item"
           >
-            <span className="overflow-hidden rounded-circle">
+            <span className="room-users-item__icon">
               <img
                 src={ el.photo.src }
                 alt={ el.photo.alt }
-                className="w-25"
+                className="room-users-item__image"
               />
             </span>
-            <p>
-              <b>{ el.name }</b>
-            </p>
+            { el.name }
           </li>
         ))
       }

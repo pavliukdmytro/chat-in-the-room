@@ -1,0 +1,12 @@
+.room-messages{
+  display: grid;
+  grid-row-gap: 20px;
+  padding: 30px;
+  height: 60vh;
+  min-height: 300px;
+  border: 1px solid black;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  overflow-y: auto;
+  align-items: flex-end;
+}

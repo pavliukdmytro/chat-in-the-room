@@ -1,0 +1,46 @@
+.room-message{
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  grid-column-gap: 15px;
+  grid-row-gap: 5px;
+  grid-template-areas:
+    'image name'
+    'message message'
+    'date date'
+  ;
+  border: 1px solid #fdcd7c;
+  border-radius: 6px;
+  padding: 5px;
+  max-width: 80%;
+  box-shadow: -3px 3px 3px #fcf7ef;
+  align-items: center;
+  background-color: #fcf7ef;
+  &_right{
+    grid-template-columns: 30px 1fr;
+    grid-template-areas:
+    'image name'
+    'message message'
+    'date date'
+  ;
+    border-color: #0a69f5;
+    justify-self: flex-end;
+    box-shadow: 3px 3px 3px #ccdef8;
+    background-color: #ccdef8;
+  }
+  &__name{
+    grid-area: name;
+    margin-bottom: 0;
+  }
+  &__image{
+    grid-area: image;
+    max-width: 100%;
+  }
+  &__message{
+    grid-area: message;
+  }
+  &__date{
+    font-size: 12px;
+    grid-area: date;
+    color: #3e3e3e;
+  }
+}

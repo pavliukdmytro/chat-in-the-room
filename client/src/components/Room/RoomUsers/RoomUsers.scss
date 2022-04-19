@@ -1,3 +1,26 @@
-.room-users-items{
-
+.room-users{
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 20px;
+  padding: 0;
+  overflow-y: auto;
+  @media (min-width: 768px) {
+    grid-auto-flow: row;
+  }
+}
+.room-users-item{
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  grid-column-gap: 20px;
+  padding: 10px 0;
+  line-height: 100%;
+  &:not(:last-child){
+    padding: 10px 0;
+    @media (min-width: 768px) {
+      border-bottom: 1px solid #333;
+    }
+  }
+  &__image{
+    max-width: 100%;
+  }
 }

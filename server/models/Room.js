@@ -5,9 +5,14 @@ const roomSchema = new Schema({
     type: String,
     unique: true
   },
-  messages: {
-    type: Array,
-  },
+  messages: [{
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    date: Date,
+    message: String,
+  }],
   users: [{
     type: Schema.Types.ObjectId,
     ref: 'User'

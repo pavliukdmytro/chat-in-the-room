@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 
-const socket = (roomId) => {
-  return
-};
-
-export default socket
+export default (roomId) => {
+  return io('', {
+    query: `roomId=${ roomId }`,
+  });
+}

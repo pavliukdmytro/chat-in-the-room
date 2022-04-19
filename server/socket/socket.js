@@ -1,4 +1,5 @@
 const Room = require('../models/Room');
+const path = require('path');
 
 module.exports = (server, io) => {
 
@@ -12,8 +13,13 @@ module.exports = (server, io) => {
       }
     }, {
       new: true,
-    }).populate('users');
-    // console.log('connect', user.id);
+    }).populate({
+      path: 'users',
+      select: 'name photo email _id'
+    }).populate({
+      path: 'messages.author',
+      select: 'name photo email _id',
+    });
 
     socket.join(roomId);
 
@@ -21,7 +27,9 @@ module.exports = (server, io) => {
     /**
      * send init data
      */
-    io.to(roomId).emit('SOCKET:SEND_DATA', room);
+    io.to(roomId).emit('CHAT:SEND_DATA', room);
+
+    socket.on('CHAT:MESSAGE', require(path.join(__dirname, 'message'))(io, user, roomId));
 
     socket.on('disconnect', async () => {
       const room = await Room.findOneAndUpdate({ roomId }, {
@@ -30,10 +38,15 @@ module.exports = (server, io) => {
         }
       }, {
         new: true,
-      }).populate('users');
+      }).populate({
+        path: 'users',
+        select: 'name photo email _id'
+      }).populate({
+        path: 'messages.author',
+        select: 'name photo email _id',
+      });
 
-      // console.log('disconnect', user.id);
-      io.to(roomId).emit('SOCKET:SEND_DATA', room);
+      io.to(roomId).emit('CHAT:SEND_DATA', room);
     });
   });
 }

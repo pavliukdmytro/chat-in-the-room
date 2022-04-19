@@ -5,6 +5,7 @@ module.exports = {
     alias: {
       '@' : join(__dirname, 'src/components'),
       '@store' : join(__dirname, 'src/store'),
+      '@src' : join(__dirname, 'src'),
     },
     // plugins: [
     //   {
