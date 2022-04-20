@@ -1,11 +1,14 @@
+import { useSelector } from 'react-redux';
 import RoomMessages from '@/Room/RoomMessages/RoomMessages.jsx';
 import RoomInput from '@/Room/RoomInput/RoomInput.jsx';
 
 const RoomChat = () => {
+  const user = useSelector(({ authData }) => authData.user);
+
   return(
     <div>
       <RoomMessages />
-      <RoomInput />
+      { user && <RoomInput /> }
     </div>
   )
 }

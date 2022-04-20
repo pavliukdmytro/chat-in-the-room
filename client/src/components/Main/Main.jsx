@@ -1,11 +1,14 @@
+import { useSelector } from 'react-redux';
 import MainCreateRoom from "@/Main/MainCreateRoom/MainCreateRoom";
 import MainRooms from "@/Main/MainRooms/MainRooms";
 
 const Main = () => {
+  const user = useSelector(({ authData }) => authData.user);
+
   return(
     <div>
       <MainRooms />
-      <MainCreateRoom />
+      { user && <MainCreateRoom /> }
     </div>
   )
 }

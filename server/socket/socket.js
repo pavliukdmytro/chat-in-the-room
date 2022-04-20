@@ -7,33 +7,11 @@ module.exports = (server, io) => {
     const { user }  = socket?.handshake?.session?.passport;
     const { roomId } = socket.handshake.query;
 
-    const room = await Room.findOneAndUpdate({ roomId }, {
-      $addToSet: {
-        users: user.id
-      }
-    }, {
-      new: true,
-    }).populate({
-      path: 'users',
-      select: 'name photo email _id'
-    }).populate({
-      path: 'messages.author',
-      select: 'name photo email _id',
-    });
+    let room = null;
 
-    socket.join(roomId);
-
-
-    /**
-     * send init data
-     */
-    io.to(roomId).emit('CHAT:SEND_DATA', room);
-
-    socket.on('CHAT:MESSAGE', require(path.join(__dirname, 'message'))(io, user, roomId));
-
-    socket.on('disconnect', async () => {
-      const room = await Room.findOneAndUpdate({ roomId }, {
-        $pull: {
+    if (user) {
+      room = await Room.findOneAndUpdate({ roomId }, {
+        $addToSet: {
           users: user.id
         }
       }, {
@@ -45,8 +23,44 @@ module.exports = (server, io) => {
         path: 'messages.author',
         select: 'name photo email _id',
       });
+    } else {
+      room = await Room.findOne({ roomId }).populate({
+        path: 'users',
+        select: 'name photo email _id'
+      }).populate({
+        path: 'messages.author',
+        select: 'name photo email _id',
+      });
+    }
 
-      io.to(roomId).emit('CHAT:SEND_DATA', room);
-    });
+
+    socket.join(roomId);
+
+
+    /**
+     * send init data
+     */
+    io.to(roomId).emit('CHAT:SEND_DATA', room);
+
+    socket.on('CHAT:MESSAGE', require(path.join(__dirname, 'message'))(io, user, roomId));
+    if (user) {
+      socket.on('disconnect', async () => {
+        const room = await Room.findOneAndUpdate({ roomId }, {
+          $pull: {
+            users: user.id
+          }
+        }, {
+          new: true,
+        }).populate({
+          path: 'users',
+          select: 'name photo email _id'
+        }).populate({
+          path: 'messages.author',
+          select: 'name photo email _id',
+        });
+
+        io.to(roomId).emit('CHAT:SEND_DATA', room);
+      });
+    }
   });
 }

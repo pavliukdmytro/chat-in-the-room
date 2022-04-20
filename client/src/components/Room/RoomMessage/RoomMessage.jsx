@@ -2,9 +2,9 @@ import { useSelector } from 'react-redux';
 import './RoomMessage.scss';
 
 const RoomMessage = ({ result }) => {
-  const userId = useSelector(({ authData }) => authData.user.id);
+  const userId = useSelector(({ authData }) => authData?.user?.id);
   const isCurrentUser = () => {
-    return userId === result.author._id;
+    return userId === result?.author?._id;
   }
 
   return(
