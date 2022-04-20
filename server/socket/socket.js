@@ -61,6 +61,19 @@ module.exports = (server, io) => {
 
         io.to(roomId).emit('CHAT:SEND_DATA', room);
       });
+
+      if (room?.owner?.toString() === user?.id) {
+        socket.on('CHAT:REMOVE_ROOM', async () => {
+          try {
+            await Room.findOneAndDelete({ roomId });
+
+            io.to(roomId).emit('CHAT:ROOM_REMOVED', { roomId });
+          } catch(err) {
+              console.error(err);
+          }
+        })
+      }
+
     }
   });
 }

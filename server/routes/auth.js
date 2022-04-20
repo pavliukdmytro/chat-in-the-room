@@ -77,4 +77,33 @@ router.put('/', async (req, res) => {
   }
 });
 
+router.delete('/', async (req, res) => {
+  try {
+    await User.findOneAndDelete({ _id: req.user.id });
+
+    const imgPath = path.join(__dirname, '../../uploads', req.user.photo.src);
+
+    fs.access(imgPath, fs.constants.R_OK, async err => {
+      try {
+        if (err) return;
+
+        await fs.promises.rm(imgPath);
+      } catch(err) {
+          console.error(err);
+      }
+    });
+
+    req.logout();
+
+    res.json({
+      ok: true,
+    })
+  } catch(err) {
+      console.error(err);
+      res.json({
+        ok: false,
+      })
+  }
+})
+
 module.exports = router;

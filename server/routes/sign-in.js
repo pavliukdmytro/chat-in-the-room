@@ -19,6 +19,7 @@ module.exports = (req, res, next) => {
       return res.json({
         user: {
           ...user?._doc,
+          id: user._doc._id,
         },
         ok: true,
       })

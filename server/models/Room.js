@@ -16,7 +16,11 @@ const roomSchema = new Schema({
   users: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
-  }]
+  }],
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  }
 });
 
 module.exports = model('Room', roomSchema);

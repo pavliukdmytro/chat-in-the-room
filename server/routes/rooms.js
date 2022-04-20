@@ -4,14 +4,20 @@ const Room = require('../models/Room');
 
 router.post('/', async (req, res) => {
   const { roomId } = req.body;
+
   if (roomId.length != 4) {
     return res.json({
       ok: false,
       error: 'room id must be 4 characters',
     })
   }
+
   try {
-    const room = new Room(req.body);
+    const room = new Room({
+      ...req.body,
+      owner: req.user.id,
+    });
+
     await room.save();
   } catch (err) {  } finally {
     res.json({

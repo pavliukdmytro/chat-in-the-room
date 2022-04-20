@@ -22,7 +22,6 @@ const CabinetUser = () => {
     })
   }
 
-
   const handlerSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -44,12 +43,24 @@ const CabinetUser = () => {
 
     form.classList.add('was-validated');
   };
+
   const handlerValidatePassword = (e) => {
     if (password !== confirmPassword) {
       setError('new password does not match');
       e.preventDefault();
     }
   };
+
+  const handlerRemove = async () => {
+    const { data } = await axios.delete('/auth');
+
+    if (data.ok) {
+      navigate('/');
+      dispatch( setData( null ) );
+    } else {
+      console.log(data);
+    }
+  }
 
   useEffect(() => {
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -157,10 +168,16 @@ const CabinetUser = () => {
 
         {
           !isChangePassword &&
-          <button className="btn btn-dark mb-4" onClick={ () => setIsChangePassword( true ) }>
-            change password
-          </button>
+          <div className="mb-4 d-flex justify-content-between">
+            <button className="btn btn-dark" onClick={ () => setIsChangePassword( true ) }>
+              change password
+            </button>
+            <button type="button" className="btn btn-danger" onClick={ handlerRemove }>
+              remove user
+            </button>
+          </div>
         }
+
 
         { error && <p className="text-danger">{ error }</p> }
         <button
