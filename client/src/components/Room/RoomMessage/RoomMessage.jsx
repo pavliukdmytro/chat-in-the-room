@@ -1,10 +1,15 @@
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 import './RoomMessage.scss';
 
 const RoomMessage = ({ result }) => {
   const userId = useSelector(({ authData }) => authData?.user?.id);
   const isCurrentUser = () => {
     return userId === result?.author?._id;
+  }
+
+  const formatDate = (time) => {
+    return moment(time).calendar();
   }
 
   return(
@@ -17,7 +22,7 @@ const RoomMessage = ({ result }) => {
       />
       <p className="room-message__message">{ result.message }</p>
       <div className="room-message__date">
-        { result.date }
+        { formatDate( result.date ) }
       </div>
     </div>
   )

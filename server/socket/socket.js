@@ -4,8 +4,11 @@ const path = require('path');
 module.exports = (server, io) => {
 
   io.on('connection', async (socket) => {
-    const { user }  = socket?.handshake?.session?.passport;
+    const user  = socket?.handshake?.session?.passport?.user;
     const { roomId } = socket.handshake.query;
+
+    // upload images
+    require('./uploader')(socket, roomId, user, io);
 
     let room = null;
 
@@ -33,9 +36,7 @@ module.exports = (server, io) => {
       });
     }
 
-
     socket.join(roomId);
-
 
     /**
      * send init data

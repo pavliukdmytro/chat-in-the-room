@@ -53,16 +53,18 @@ const Room = () => {
             <div className="col-md-4">
               {
                 id === owner &&
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  onClick={ handlerRemoveRoom }
-                >
-                  remove room
-                </button>
+                <div>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={ handlerRemoveRoom }
+                  >
+                    remove room
+                  </button>
+                  <br/>
+                  <br/>
+                </div>
               }
-              <br/>
-              <br/>
               <RoomUsers />
             </div>
             <div className="col-md-8">

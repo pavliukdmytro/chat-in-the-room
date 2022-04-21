@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import RoomMessage from "@/Room/RoomMessage/RoomMessage.jsx";
+import RoomFile from "@/Room/RoomFile/RoomFile";
 import './RoomMessages.scss';
 
 const RoomMessages = () => {
@@ -17,7 +18,9 @@ const RoomMessages = () => {
       {
         messages &&
         messages.map(el => (
-          <RoomMessage result={ el } key={el._id} />
+            !el.file ?
+              <RoomMessage result={ el } key={el._id} /> :
+              <RoomFile  result={ el } key={el._id}/>
         ))
       }
     </div>

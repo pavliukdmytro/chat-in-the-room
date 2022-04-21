@@ -12,6 +12,7 @@ const roomSchema = new Schema({
     },
     date: Date,
     message: String,
+    file: Object,
   }],
   users: [{
     type: Schema.Types.ObjectId,
