@@ -8,5 +8,5 @@ docker-compose -f docker-compose.prod.yml build
 docker-compose -f docker-compose.prod.yml up
 
 ### development
-docker-compose build
+docker-compose build  
 docker-compose up
